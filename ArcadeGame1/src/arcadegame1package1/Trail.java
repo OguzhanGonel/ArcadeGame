@@ -18,7 +18,7 @@ public class Trail extends GameObject{
 	
 	//life = 0.01 - 0.1
 	
-	
+	// The Trial constructor
 	public Trail(int x, int y, ID id, Color color, int width, int height, float life, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
@@ -28,6 +28,7 @@ public class Trail extends GameObject{
 		this.life = life;
 	}
 
+	// Implements the tick method for the Trail class
 	public void tick() {
 		if(alpha > life){
 			alpha -= (life - 0.0001f);
@@ -37,7 +38,7 @@ public class Trail extends GameObject{
 		}
 	}
 	
-	
+	// Renders the objects
 	public void render(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setComposite(makeTransparent(alpha));
@@ -49,12 +50,13 @@ public class Trail extends GameObject{
 
 	}
 
+	// Makes the passed float transparent
 	private AlphaComposite makeTransparent(float alpha){
 		int type = AlphaComposite.SRC_OVER;
 		return(AlphaComposite.getInstance(type, alpha));
 	}
 	
-	
+	// Gets the bound for the object
 	public Rectangle getBounds() {
 		return null;
 	}

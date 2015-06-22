@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.Random;
 
+//This is the main class of the game
 public class GameMain extends Canvas implements Runnable{
 	
 	private static final long serialVersionUID = -8529200167762764085L;
@@ -19,23 +20,30 @@ public class GameMain extends Canvas implements Runnable{
 	private Random r;
 	private Spawn spawner;
 	
+	// The GameMain constructor
 	public GameMain(){
 		
 		handler = new Handler();
 		
+		//listening to key inputs such as A, W, S, D
 		this.addKeyListener(new KeyInput(handler));
 		
+		//creating the game window
 		new Window(Width, Height, "Building a game", this);	
 		
 		hud = new HUD();
 		spawner = new Spawn(handler, hud);
 		r = new Random();
 		
+		//Adding the player
 		handler.addObject(new Player(Width/2-32, Height/2, ID.Player, handler));
+		//Adding the enemy that starts at level 1
+		handler.addObject(new BasicEnemy(r.nextInt(GameMain.Width), r.nextInt(GameMain.Height), ID.BasicEnemy, handler));
 
 		
 	}
 	
+	//This creates a thread for the game
 	public synchronized void start(){
 		
 		thread = new Thread(this);
@@ -58,7 +66,7 @@ public class GameMain extends Canvas implements Runnable{
 		
 	}
 	
-	
+	//This method runs the game
 	public void run(){
 		this.requestFocus();
 		long lastTime = System.nanoTime();
@@ -89,12 +97,14 @@ public class GameMain extends Canvas implements Runnable{
 		stop();
 	}
 	
-	
+	//The tick method for GameMain
 	private void tick(){
 		handler.tick();
 		hud.tick();
+		spawner.tick();
 	}
 	
+	//This renders the game window
 	private void render(){
 		
 		BufferStrategy bs = this.getBufferStrategy();
@@ -118,6 +128,7 @@ public class GameMain extends Canvas implements Runnable{
 		
 	}
 	
+	// This method makes sure the player stays within the game boundaries
 	public static int clamp(int var, int min, int max){
 		if(var >= max)
 			return var = max;
@@ -127,7 +138,7 @@ public class GameMain extends Canvas implements Runnable{
 			return var;
 	}
 	
-	
+	//This is the main method of the project
 	public static void main(String args[]){
 		
 		new GameMain();
