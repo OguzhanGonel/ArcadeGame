@@ -6,10 +6,17 @@ import java.awt.event.KeyEvent;
 public class KeyInput extends KeyAdapter{
 	
 	private Handler handler;
+	private boolean[] keyDown = new boolean[4];	
 	
 	// The KeyInput constructor
 	public KeyInput(Handler handler){
 		this.handler = handler;
+		
+		keyDown[0] = false;
+		keyDown[1] = false;
+		keyDown[2] = false;
+		keyDown[3] = false;
+		
 	}
 	
 	// Handles the keys pressed by the player, such as A, W, S, D
@@ -27,10 +34,25 @@ public class KeyInput extends KeyAdapter{
 				//Key events for player 1
 				
 				// The game keys make actions
-				if(key == KeyEvent.VK_W) tempObject.setVelY(-5);
-				if(key == KeyEvent.VK_S) tempObject.setVelY(5);
-				if(key == KeyEvent.VK_D) tempObject.setVelX(5);
-				if(key == KeyEvent.VK_A) tempObject.setVelX(-5);
+				if(key == KeyEvent.VK_W){
+					tempObject.setVelY(-5);
+					keyDown[0] = true;
+				}
+				if(key == KeyEvent.VK_S){
+					tempObject.setVelY(5);
+					keyDown[1] = true;
+				}
+				if(key == KeyEvent.VK_D){
+					tempObject.setVelX(5);
+					keyDown[2] = true;
+				}
+				if(key == KeyEvent.VK_A){
+					tempObject.setVelX(-5);
+					keyDown[3] = true;
+				}
+				
+				
+				
 			}
 		}
 		// This closes the game if the user hits the Escape key on the key board
@@ -51,10 +73,25 @@ public class KeyInput extends KeyAdapter{
 				//Key events for player 1
 				
 				// If the key is released, the velocity is set to 0
-				if(key == KeyEvent.VK_W) tempObject.setVelY(0);
-				if(key == KeyEvent.VK_S) tempObject.setVelY(0);
-				if(key == KeyEvent.VK_D) tempObject.setVelX(0);
-				if(key == KeyEvent.VK_A) tempObject.setVelX(0);
+				if(key == KeyEvent.VK_W){
+					keyDown[0] = false;
+				}
+				if(key == KeyEvent.VK_S){
+					keyDown[1] = false;
+				}
+				if(key == KeyEvent.VK_D){
+					keyDown[2] = false;
+				}
+				if(key == KeyEvent.VK_A){
+					keyDown[3] = false;
+
+				}
+				
+				// For vertical movement
+				if(!keyDown[0] && !keyDown[1]) tempObject.setVelY(0);
+				
+				// For horizontal movement
+				if(!keyDown[2] && !keyDown[3]) tempObject.setVelX(0);
 			}
 			}
 	}

@@ -5,13 +5,13 @@ import java.awt.Rectangle;
 
 public abstract class GameObject {
 	
-	protected int x, y;
+	protected float x, y;
 	protected ID id;
-	protected int velX, velY;
+	protected float velX, velY;
 	
 	
 	//GameObject constructor
-	public GameObject(int x, int y, ID id){
+	public GameObject(float x, float y, ID id){
 		
 		this.x = x;
 		this.y = y;
@@ -29,7 +29,7 @@ public abstract class GameObject {
 	}
 	
 	//Gets the y value
-	public int getX(){
+	public float getX(){
 		return x;
 	}
 	
@@ -39,7 +39,7 @@ public abstract class GameObject {
 	}
 	
 	//Gets the y value
-	public int getY(){
+	public float getY(){
 		return y;
 	}
 	
@@ -59,7 +59,7 @@ public abstract class GameObject {
 	}
 	
 	//Gets the velocity of x 
-	public int getVelX(){
+	public float getVelX(){
 		return velX;
 	}
 	
@@ -69,7 +69,7 @@ public abstract class GameObject {
 	}
 	
 	//Gets the velocity of y
-	public int getVelY(){
+	public float getVelY(){
 		return velY;
 	}
 	

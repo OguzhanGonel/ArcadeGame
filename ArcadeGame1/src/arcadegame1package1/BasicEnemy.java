@@ -9,7 +9,7 @@ public class BasicEnemy extends GameObject{
 	private Handler handler;
 
 	//BasicEnemy constructor
-	public BasicEnemy(int x, int y, ID id, Handler handler) {
+	public BasicEnemy(float x, float y, ID id, Handler handler) {
 		super(x, y, id);
 		
 		this.handler = handler;
@@ -20,7 +20,7 @@ public class BasicEnemy extends GameObject{
 
 	//Creating how the basic enemy looks
 	public Rectangle getBounds(){
-		return new Rectangle(x, y, 16, 16);
+		return new Rectangle((int)x, (int)y, 16, 16);
 	}
 
 	//Implementing the tick method for the BasicEnemy
@@ -40,7 +40,7 @@ public class BasicEnemy extends GameObject{
 	//Designing the enemy
 	public void render(Graphics g) {
 		g.setColor(Color.red);
-		g.fillRect(x, y, 16, 16);
+		g.fillRect((int)x, (int)y, 16, 16);
 	}
 	
 	

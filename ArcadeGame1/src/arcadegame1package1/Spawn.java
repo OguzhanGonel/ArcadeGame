@@ -31,13 +31,18 @@ public class Spawn {
 			}
 			
 			//Adding a basic enemy 
-			if(hud.getLevel() == 3){
+			else if(hud.getLevel() == 3){
 				handler.addObject(new BasicEnemy(r.nextInt(GameMain.Width), r.nextInt(GameMain.Height), ID.BasicEnemy, handler));
 			}
 			
 			//Adding a fast enemy 
-			if(hud.getLevel() == 4){
+			else if(hud.getLevel() == 4){
 				handler.addObject(new FastEnemy(r.nextInt(GameMain.Width), r.nextInt(GameMain.Height), ID.FastEnemy, handler));
+			}
+			
+			//Adding a smart enemy 
+			else if(hud.getLevel() == 5){
+				handler.addObject(new SmartEnemy(r.nextInt(GameMain.Width), r.nextInt(GameMain.Height), ID.SmartEnemy, handler));
 			}
 		}
 	}
