@@ -11,7 +11,7 @@ public class Player extends GameObject{
 	Random r = new Random();
 	Handler handler;
 	
-	public Player(float x, float y, ID id, Handler handler){
+	public Player(int x, int y, ID id, Handler handler){
 		super(x, y, id);	
 		this.handler = handler;
 	}
@@ -46,6 +46,14 @@ public class Player extends GameObject{
 					HUD.Health -=2;
 				}
 			}
+			
+			if(tempObject.getID() == ID.EnemyBoss1){
+				if(getBounds().intersects(tempObject.getBounds())){
+					//collision code
+					HUD.Health -=9000;
+				}
+			}
+			
 		}
 	}
 	
