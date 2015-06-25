@@ -31,6 +31,7 @@ public class Handler {
 		}
 	}
 	
+	// Clears the enemies in the game
 	public void clearEnemies(){
 		for(int i = 0; i < object.size(); i++){
 

@@ -19,14 +19,30 @@ public class GameMain extends Canvas implements Runnable{
 	private HUD hud;
 	private Random r;
 	private Spawn spawner;
+	private Menu menu;
+	
+	public enum STATE {
+		Menu,
+		Help,
+		Game
+	};
+	
+	public STATE gameState = STATE.Menu;
 	
 	// The GameMain constructor
 	public GameMain(){
 		
 		handler = new Handler();
 		
+		
+		// the game menu at the beginning of the game
+		menu = new Menu(this, handler);
+		
 		//listening to key inputs such as A, W, S, D
 		this.addKeyListener(new KeyInput(handler));
+		
+		//listening for mouse input
+		this.addMouseListener(menu);
 		
 		//creating the game window
 		new Window(Width, Height, "Building a game", this);	
@@ -35,12 +51,16 @@ public class GameMain extends Canvas implements Runnable{
 		spawner = new Spawn(handler, hud);
 		r = new Random();
 		
-		//Adding the player
-		handler.addObject(new Player(Width/2-32, Height/2, ID.Player, handler));
+		if(gameState == STATE.Game){
+			//Adding the player
+			handler.addObject(new Player(Width/2-32, Height/2, ID.Player, handler));
 
-		//Adding the enemy that starts at level 1
-		handler.addObject(new BasicEnemy(r.nextInt(GameMain.Width), r.nextInt(GameMain.Height), ID.BasicEnemy, handler));
+			//Adding the enemy that starts at level 1
+			handler.addObject(new BasicEnemy(r.nextInt(GameMain.Width-50), r.nextInt(GameMain.Height-50), ID.BasicEnemy, handler));
 
+		}
+		
+	
 		
 	}
 	
@@ -101,8 +121,13 @@ public class GameMain extends Canvas implements Runnable{
 	//The tick method for GameMain
 	private void tick(){
 		handler.tick();
-		hud.tick();
-		spawner.tick();
+		if(gameState == STATE.Game){
+			hud.tick();
+			spawner.tick();
+		}
+		else if(gameState == STATE.Menu){
+			menu.tick();
+		}
 	}
 	
 	//This renders the game window
@@ -121,7 +146,13 @@ public class GameMain extends Canvas implements Runnable{
 		
 		handler.render(g);
 
-		hud.render(g);
+		if(gameState == STATE.Game){
+			hud.render(g);
+		}
+		else if(gameState == STATE.Menu || gameState == STATE.Help){
+			menu.render(g);
+		}
+		
 
 		
 		g.dispose();
